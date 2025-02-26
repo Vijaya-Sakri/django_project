@@ -1,0 +1,52 @@
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Companies</title>
+    <link rel="stylesheet" href="/static/css/companies.css">
+    <link rel="stylesheet" href="/static/css/bootstrap/css/bootstrap.min.css">
+</head>
+<body class="mx-auto mt-5" style="background-color:#DEB887">
+    <div class="">
+        <h1 class="text-center" style="color:#8B4513">Companies willing to Sponsor!</h1> <hr>
+        <div class="row">
+        {% for companies in company %}  
+        <div class="col-md-6">
+        <div class="card mt-3 task">
+            <div class="abstract">
+              <div class="row">
+                  <div class="image col-sm-5 text-center rounded">
+                    {% if companies.company_image %} 
+                        <img src="{{companies.company_image.url}}" alt="" class="rounded-circle mt-2" height="150px" width="150px" alt="{{companies.company_name}}">
+                        {% endif %}
+                  <h3>{{companies.company_name}}</h3> <hr>
+            
+                </div>
+              <div class="col-sm-7">
+                  <div class="row">
+                  <h3 class="text-center mt-5 details-text">{{companies.company_name}}</h3> <hr>
+                  <p>{{companies.company_details}}</p>
+              </div>
+              </div>
+          </div>
+          
+        </div>
+            <div class="details">
+              <div class="details__inner">
+                <h3>Details</h3>
+                <span for="">Email:</span>
+                <span id="email">{{companies.company_email}}</span> <br>
+                Contact No.: <span id="contact">{{companies.company_number}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+          {% endfor %}
+      </div>
+</body>
+</html>

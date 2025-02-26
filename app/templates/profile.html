@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    
+    <link rel="stylesheet" href="/static/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"crossorigin="anonymous"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+   <style>
+    ol{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    }
+   </style>
+</head>
+<body style="overflow-x:hidden">
+
+
+{% comment %} navbar starts here {% endcomment %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    {% comment %} <a class="navbar-brand" href="#">Navbar</a> {% endcomment %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/home/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        {%if count1 == False and count2 == False %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Join Us</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" href="/college_details/">College Details</a>
+              <a class="dropdown-item" href="/company_details/">Company Details</a>
+            </div>
+        </li>
+        {% elif count1 %}
+        <li class="nav-item">
+          <a class="nav-link" href="college_event_details/{{collegeuser.id}}">Add event details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="college_events/{{collegeuser.id}}">Events</a>
+        </li>
+        {% elif count2 %}
+        <li class="nav-item">
+          <a class="nav-link " href="#">Edit company details</a>
+        </li>
+        {% endif %}
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><a href="/logout/" class="navbar-link">Logout</a></button>
+      </form>
+    </div>
+  </nav>
+  {% comment %} navbar ends here {% endcomment %}
+
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <div class="alert alert-{{message.tags}}" role="alert">
+          <strong>Message</strong> {{message}}
+        </div>
+      {% endfor %}
+  </ul>
+  {% endif %}
+{% comment %} message section ends here {% endcomment %}
+
+{% comment %} profile starts here {% endcomment %}
+<div class="mt-5 d-flex justify-content-between align-items-center"  style="background-color:#e3ebec">
+<h3 class="p-4">Profile</h3>
+<ol class="list-inline fs-5 me-2">
+    <li class="list-inline-item"><a href="/home/" class="text-dark">Home</a></li>
+    <li class="list-inline-item">/</li>
+    <li class="list-inline-item"><a href="/profile/{{request.user.id}}/" class="text-dark">Profile</a></li>
+</ol>
+</div>
+
+  <div class="container mt-1">
+  <div class="row">
+    <div class="col-lg-4 col-12">
+        <div class="card">
+            <img src="{{user1.image.url}}" class="img-fluid" alt="..." style="">
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="card w-100">
+            <div class="card-body">
+              <h3 class="card-title">{{request.user.username}}</h3>
+              <h4><hr></h4>
+
+    <form class="container" method="POST" enctype="multipart/form-data">
+       {% csrf_token %}
+              <div class="form-group">
+                <label class=" requiredField">Username<span class="asteriskField">*</span> </label>
+              <input type="text" name="username" value="{{request.user.first_name}}" maxlength="150" readonly="" class="textinput textInput form-control" required="">
+
+              <label  class=" requiredField">Email</label>
+              <input type="email" name="username" value="{{request.user.email}}" maxlength="150" readonly="" class="textinput textInput form-control" required="">
+
+                <label  class=" requiredField">Full name<span class="asteriskField">*</span> </label>
+                <input type="text" name="username" value="{{request.user.first_name}}  {{request.user.last_name}}" maxlength="150" readonly="" class="textinput textInput form-control" required="">
+
+
+                {% if user1.image %}
+                <label  class=" requiredField">Profile picture</label>
+                <div class="form-group">Currently: <img src="{{user1.image.name}}" alt="no image" height="130px" width="120px" class=" rounded-circle"></div></a><br>
+                Change:
+                <input type="file" name="image" accept="image/*" class="clearablefileinput form-control-file form-control" id="id_image"> <small id="hint_id_image" class="form-text text-muted"></small> </div>
+                {% else %}
+                <label  class=" requiredField">Profile picture</label>
+                <input type="file" name="image" accept="image/*" class="clearablefileinput form-control-file form-control" id="id_image"> <small id="hint_id_image" class="form-text text-muted"></small> </div>
+                {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary" name="editpro">Submit</button>
+            </form>
+            </div>
+          </div>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>

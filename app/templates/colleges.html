@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colleges</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/colleges.css">
+</head>
+
+<body >
+    <div class="team-boxed">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center" style="color:#8B4513">LIST OF COLLEGES</h2>
+                <p class="text-center"></p>
+            </div>
+            <div class="row people ">
+            {% for colleges in college %}
+                <div class="col-md-6 col-lg-4 item">
+                    <div class="college p-3 mb-3">
+                    {% if colleges.image %} 
+                    <img class="img-fluid" src="{{colleges.image.url}}" style="height:250px;width:250px" ></img>
+                        {% endif %}
+                        <h3 class="name">{{colleges.name}}</h3>
+                        <p class="title">{{colleges.email}}</p>
+                        <p class="description">{{colleges.number}}</p>
+                        {% comment %} <p class="description">{{colleges.id}}</p> {% endcomment %}
+                        <button class="btn btn-primary" name='events'> <a href="college_events/{{colleges.id}}" class="text-white">Events</a></button>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
