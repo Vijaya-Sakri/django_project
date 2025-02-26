@@ -93,10 +93,10 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'vijaya24$Sponsors',
-        'USER': 'vijaya24',
-        'PASSWORD': 'Vijaya@626',
-        'HOST': 'vijaya24.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
+        'NAME': 'sponsorsmedia',
+        'USER': 'root',
+        'PASSWORD': 'Vijaya@7',
+        'HOST': '127.0.0.1',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
